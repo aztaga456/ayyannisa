@@ -21,12 +21,12 @@
     <meta property="og:image" content="https://ayyannisa-wedding.vercel.app/og-image.jpg">
     <meta property="og:image:secure_url" content="https://ayyannisa-wedding.vercel.app/og-image.jpg">
     <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
+    <meta property="og:image:width" content="800">
+    <meta property="og:image:height" content="800">
     <meta property="og:image:alt" content="The Wedding of Ayyan & Nisa">
 
     <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:card" content="summary">
     <meta name="twitter:url" content="https://ayyannisa-wedding.vercel.app/">
     <meta name="twitter:title" content="The Wedding of Ayyan & Nisa">
     <meta name="twitter:description" content="Minggu, 22 November 2026 - Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.">
@@ -239,8 +239,39 @@
             font-size: clamp(3.2rem, 9.5vw, 4.4rem);
             line-height: 1.1;
             color: #ffffff;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
             margin-bottom: 0.35rem;
+            position: relative;
+            display: inline-block;
+            animation: slowTwinkleGlow 3.6s ease-in-out infinite;
+        }
+
+        /* Efek Cahaya Kelap-Kelip Pelan untuk Ayyan & Nisa */
+        @keyframes slowTwinkleGlow {
+            0%, 100% {
+                text-shadow: 
+                    0 2px 8px rgba(0, 0, 0, 0.7),
+                    0 0 10px rgba(255, 255, 255, 0.35),
+                    0 0 20px rgba(212, 175, 55, 0.25);
+                filter: brightness(0.98);
+            }
+            40% {
+                text-shadow: 
+                    0 2px 14px rgba(0, 0, 0, 0.85),
+                    0 0 20px rgba(255, 255, 255, 0.95),
+                    0 0 38px rgba(255, 225, 140, 0.9),
+                    0 0 60px rgba(212, 175, 55, 0.7),
+                    0 0 85px rgba(255, 255, 255, 0.5);
+                filter: brightness(1.22) drop-shadow(0 0 10px rgba(255, 235, 150, 0.85));
+            }
+            60% {
+                text-shadow: 
+                    0 2px 14px rgba(0, 0, 0, 0.85),
+                    0 0 22px rgba(255, 255, 255, 1),
+                    0 0 42px rgba(255, 230, 150, 0.95),
+                    0 0 65px rgba(212, 175, 55, 0.75),
+                    0 0 90px rgba(255, 255, 255, 0.55);
+                filter: brightness(1.25) drop-shadow(0 0 12px rgba(255, 240, 160, 0.9));
+            }
         }
 
         .cover-top .cover-date {
@@ -295,30 +326,92 @@
             text-align: center;
         }
 
-        /* Tombol Buka Undangan Dipisah Sendiri Lebih Agak ke Bawah */
+        /* Tombol Buka Undangan Glowing Berputar */
         .cover-btn-wrap {
             width: 100%;
             max-width: 480px;
             margin: 0 auto;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn-open-invite-wrap {
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3px;
+            border-radius: 35px;
+            overflow: hidden;
+            background: transparent;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.45), 0 4px 15px rgba(0, 0, 0, 0.3);
+            animation: btnOuterPulse 2.4s ease-in-out infinite alternate;
+        }
+
+        .btn-open-invite-wrap::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                transparent 0deg,
+                rgba(255, 255, 255, 0.1) 40deg,
+                #d4af37 100deg,
+                #ffffff 160deg,
+                #f6e29d 220deg,
+                #d4af37 280deg,
+                transparent 360deg
+            );
+            animation: rotateGlow 3s linear infinite;
+            z-index: 1;
         }
 
         .btn-open-invite {
+            position: relative;
+            z-index: 2;
             background: #5b6f87;
             color: #ffffff !important;
-            border: 2px solid rgba(255, 255, 255, 0.9);
-            border-radius: 25px;
-            padding: 11px 34px;
+            border: 1px solid rgba(255, 255, 255, 0.85);
+            border-radius: 32px;
+            padding: 12px 36px;
             font-size: 0.98rem;
             font-weight: 600;
-            box-shadow: 0 4px 18px rgba(91, 111, 135, 0.5), 0 0 15px rgba(255, 255, 255, 0.4);
-            animation: glowPulse 2s infinite ease-in-out;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .btn-open-invite:hover {
+            background: #4e627a;
+            transform: scale(1.03);
+        }
+
+        @keyframes rotateGlow {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes btnOuterPulse {
+            0% {
+                box-shadow: 0 0 15px rgba(212, 175, 55, 0.35), 0 0 8px rgba(255, 255, 255, 0.25);
+            }
+            100% {
+                box-shadow: 0 0 35px rgba(212, 175, 55, 0.85), 0 0 20px rgba(255, 255, 255, 0.65), 0 6px 25px rgba(0, 0, 0, 0.4);
+            }
         }
 
         /* Halaman 2: Ayat di Bagian Kosong Atas & Countdown di Bawah */
@@ -1531,14 +1624,99 @@
 
 /* 5. WISHES & RSVP */
 
-/* 5. WISHES & RSVP (SEPARATED INTO 2 CARDS) */
-.rsvp-standalone-card, .wishes-standalone-card {
+/* 5. WISHES & RSVP (FORM 1 KOTAK & HASIL 2 KOLOM DI BAWAHNYA) */
+.unified-rsvp-card {
     background: #ffffff;
     border-radius: 24px;
-    padding: 32px 22px;
-    max-width: 440px;
-    margin: 0 auto 24px;
+    padding: 32px 24px;
+    max-width: 600px;
+    margin: 0 auto 28px;
     box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+}
+
+.results-column-card {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 22px 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.column-card-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    color: #3b4b68;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.column-summary-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px 0 14px;
+    border-bottom: 1px solid #e2e8f0;
+    margin-bottom: 16px;
+}
+
+.rsvp-stream-list, .wishes-stream-list {
+    max-height: 400px;
+    overflow-y: auto;
+    padding-right: 4px;
+    text-align: left;
+}
+
+.rsvp-item-box {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 10px;
+    transition: transform 0.2s ease;
+}
+
+.rsvp-item-box:hover {
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+}
+
+.badge-status-hadir {
+    background: #dcfce7;
+    color: #166534;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 6px;
+    border: 1px solid #bbf7d0;
+}
+
+.badge-status-tidak {
+    background: #fee2e2;
+    color: #991b1b;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 6px;
+    border: 1px solid #fecaca;
+}
+
+.badge-status-ragu {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 6px;
+    border: 1px solid #fde68a;
 }
 
 .wishes-ref-card {
@@ -1705,11 +1883,13 @@
             <p class="cover-disclaimer">*) Mohon maaf apabila ada kesalahan<br>dalam penulisan nama/gelar</p>
         </div>
 
-        <!-- Bagian Bawah: Tombol Buka Undangan (Dipisah Sendiri Lebih Agak ke Bawah) -->
-        <div class="cover-btn-wrap">
-            <button class="btn-open-invite" onclick="bukaUndangan()">
-                <i class="far fa-envelope me-2"></i> Buka Undangan
-            </button>
+        <!-- Bagian Bawah: Tombol Buka Undangan Glowing Berputar -->
+        <div class="cover-btn-wrap animate__animated animate__fadeInUp">
+            <div class="btn-open-invite-wrap" onclick="bukaUndangan()">
+                <button class="btn-open-invite">
+                    <i class="far fa-envelope me-2"></i> Buka Undangan
+                </button>
+            </div>
         </div>
     </div>
 
@@ -2059,85 +2239,121 @@
         <section id="rsvp-section" class="section-ref-slate pt-3">
             <div class="container text-center">
 
-                <!-- KOTAK 1: KONFIRMASI KEHADIRAN (RSVP) -->
-                <div class="rsvp-standalone-card" data-aos="fade-up">
-                    <h2 class="wishes-card-title">KONFIRMASI KEHADIRAN</h2>
-                    <p class="wishes-card-sub">Mohon konfirmasi kehadiran Bapak/Ibu/Saudara/i</p>
+                <!-- FORM UTAMA: KONFIRMASI KEHADIRAN & UCAPAN DOA (DIJADIKAN 1 KOTAK) -->
+                <div class="unified-rsvp-card" data-aos="fade-up">
+                    <h2 class="wishes-card-title">KONFIRMASI KEHADIRAN &amp; DOA RESTU</h2>
+                    <p class="wishes-card-sub">Mohon konfirmasi kehadiran serta berikan doa restu Anda untuk kami</p>
 
-                    <form id="formRsvpOnly" onsubmit="handleRsvpOnly(event)" class="text-start">
+                    <form id="formUnifiedRsvp" onsubmit="handleUnifiedSubmit(event)" class="text-start">
                         <div class="mb-3">
-                            <label class="form-label small fw-bold text-slate">Nama Tamu</label>
-                            <input type="text" class="form-control-ref" id="rsvpNama" placeholder="Nama Tamu" required>
+                            <label class="form-label small fw-bold text-slate">Nama Anda</label>
+                            <input type="text" class="form-control-ref" id="unifiedNama" placeholder="Nama Tamu / Anda" required>
+                        </div>
+
+                        <div class="row g-2 mb-3">
+                            <div class="col-sm-6">
+                                <label class="form-label small fw-bold text-slate">Konfirmasi Kehadiran</label>
+                                <select class="form-select-ref" id="unifiedStatus" required onchange="toggleJumlahField(this.value)">
+                                    <option value="" disabled selected>Pilih Kehadiran</option>
+                                    <option value="Hadir">Hadir</option>
+                                    <option value="Tidak Hadir">Tidak Hadir</option>
+                                    <option value="Ragu-ragu">Ragu-ragu</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6" id="wrapJumlahTamu">
+                                <label class="form-label small fw-bold text-slate">Jumlah Tamu</label>
+                                <select class="form-select-ref" id="unifiedJumlah">
+                                    <option value="1 Orang">1 Orang</option>
+                                    <option value="2 Orang">2 Orang</option>
+                                    <option value="3 Orang">3 Orang</option>
+                                    <option value="Lebih dari 3 Orang">Lebih dari 3 Orang</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label small fw-bold text-slate">Konfirmasi Kehadiran</label>
-                            <select class="form-select-ref" id="rsvpStatus" required>
-                                <option value="" disabled selected>Pilih Kehadiran</option>
-                                <option value="Hadir">Hadir</option>
-                                <option value="Tidak Hadir">Tidak Hadir</option>
-                                <option value="Ragu-ragu">Ragu-ragu</option>
-                            </select>
+                            <label class="form-label small fw-bold text-slate">Ucapan &amp; Doa Restu</label>
+                            <textarea class="form-control-ref" id="unifiedPesan" rows="3" placeholder="Tuliskan ucapan selamat dan doa restu untuk Ayyan &amp; Nisa..."></textarea>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold text-slate">Jumlah Tamu</label>
-                            <select class="form-select-ref" id="rsvpJumlah">
-                                <option value="1 Orang">1 Orang</option>
-                                <option value="2 Orang">2 Orang</option>
-                                <option value="3 Orang">3 Orang</option>
-                                <option value="Lebih dari 3 Orang">Lebih dari 3 Orang</option>
-                            </select>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn-ref-blue w-100" id="btnRsvpOnly">
-                                <i class="fas fa-paper-plane me-2"></i> Kirim Konfirmasi Kehadiran
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn-ref-blue w-100 py-3" id="btnUnifiedSubmit">
+                                <i class="fas fa-paper-plane me-2"></i> Kirim Konfirmasi &amp; Ucapan
                             </button>
                         </div>
                     </form>
                 </div>
 
-                <!-- KOTAK 2 (DI BAWAHNYA): UCAPAN & DOA RESTU -->
-                <div class="wishes-standalone-card" data-aos="fade-up" data-aos-delay="100">
-                    <h2 class="wishes-card-title">UCAPAN &amp; DOA RESTU</h2>
-                    <p class="wishes-card-sub">Berikan ucapan terbaik untuk kedua mempelai</p>
-
-                    <div class="wishes-count-bar">
-                        <i class="fas fa-comment-dots me-2" style="color: #6c8099;"></i>
-                        <span id="ucapanCount">1</span>&nbsp;Ucapan
-                    </div>
-
-                    <form id="formUcapanOnly" onsubmit="handleUcapanOnly(event)" class="text-start mb-4">
-                        <div class="mb-3">
-                            <input type="text" class="form-control-ref" id="ucapanNama" placeholder="Nama Anda" required>
-                        </div>
-
-                        <div class="mb-3">
-                            <textarea class="form-control-ref" id="ucapanTeks" rows="3" placeholder="Tulis ucapan dan doa restu..." required></textarea>
-                        </div>
-
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn-ref-blue px-4" id="btnUcapanOnly">
-                                <i class="fas fa-paper-plane me-2"></i> Kirim Ucapan
-                            </button>
-                        </div>
-                    </form>
-
-                    <!-- Stream Ucapan -->
-                    <div class="wishes-stream text-start" id="ucapanContainer">
-                        <div class="wishes-bubble-item">
-                            <div class="d-flex align-items-center mb-1">
-                                <i class="fas fa-user-circle me-2 fs-5" style="color: #6c8099;"></i>
-                                <strong class="wishes-author">Keluarga Besar Santriman</strong>
-                                <span class="badge-hadir ms-auto">Hadir</span>
+                <!-- HASIL DI BAWAHNYA DIBUAT DI KOLOM BERBEDA (2 KOLOM: KEHADIRAN & UCAPAN) -->
+                <div class="row g-3 g-md-4 mt-2 text-start" data-aos="fade-up" data-aos-delay="100">
+                    
+                    <!-- KOLOM 1: HASIL DAFTAR KEHADIRAN -->
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <div class="results-column-card">
+                            <div class="column-card-title">
+                                <i class="fas fa-user-check me-2" style="color: #6c8099;"></i> DAFTAR KEHADIRAN
                             </div>
-                            <p class="wishes-text mb-1">
-                                Selamat menempuh hidup baru Ayyan &amp; Nisa. Semoga menjadi keluarga yang Sakinah, Mawaddah, Warahmah. Aamiin ya rabbal'alamin.
-                            </p>
-                            <small class="wishes-time">Baru saja</small>
+                            
+                            <!-- Rekap Ringkasan -->
+                            <div class="column-summary-bar">
+                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1">
+                                    <i class="fas fa-check-circle me-1"></i> Hadir: <span id="countHadir">1</span>
+                                </span>
+                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 ms-1">
+                                    <i class="fas fa-times-circle me-1"></i> Tidak: <span id="countTidak">0</span>
+                                </span>
+                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1 ms-1">
+                                    <i class="fas fa-question-circle me-1"></i> Ragu: <span id="countRagu">0</span>
+                                </span>
+                            </div>
+
+                            <!-- List Kehadiran Tamu -->
+                            <div class="rsvp-stream-list" id="rsvpStreamContainer">
+                                <div class="rsvp-item-box">
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <strong class="text-slate small fw-bold"><i class="fas fa-user-circle me-1 text-muted"></i> Bpk. Ahmad Muzakkir</strong>
+                                        <span class="badge-status-hadir">Hadir</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.74rem;">
+                                        <span><i class="fas fa-users me-1"></i> 2 Orang</span>
+                                        <span>Baru saja</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
+                    <!-- KOLOM 2: HASIL UCAPAN & DOA RESTU -->
+                    <div class="col-md-6">
+                        <div class="results-column-card">
+                            <div class="column-card-title">
+                                <i class="fas fa-comments me-2" style="color: #6c8099;"></i> UCAPAN &amp; DOA RESTU
+                            </div>
+                            
+                            <!-- Rekap Jumlah Ucapan -->
+                            <div class="column-summary-bar">
+                                <span class="badge bg-light text-slate border px-2 py-1">
+                                    <i class="fas fa-heart text-danger me-1"></i> <span id="ucapanCount">1</span> Ucapan Diterima
+                                </span>
+                            </div>
+
+                            <!-- Stream Ucapan Tamu -->
+                            <div class="wishes-stream-list" id="ucapanStreamContainer">
+                                <div class="wishes-bubble-item">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-user-circle me-2 fs-5" style="color: #6c8099;"></i>
+                                        <strong class="wishes-author">Keluarga Besar Santriman</strong>
+                                        <span class="badge-hadir ms-auto">Hadir</span>
+                                    </div>
+                                    <p class="wishes-text mb-1">
+                                        Selamat menempuh hidup baru Ayyan &amp; Nisa. Semoga menjadi keluarga yang Sakinah, Mawaddah, Warahmah. Aamiin ya rabbal'alamin.
+                                    </p>
+                                    <small class="wishes-time">Baru saja</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
@@ -2192,9 +2408,9 @@
             const namaTamu = urlParams.get('to');
             if (namaTamu) {
                 document.getElementById('nama-tamu').textContent = namaTamu;
-                // Prefill form RSVP
-                document.getElementById('rsvpNama').value = namaTamu;
-                document.getElementById('ucapanNama').value = namaTamu;
+                // Prefill form RSVP & Wishes
+                const unifiedNama = document.getElementById('unifiedNama');
+                if (unifiedNama) unifiedNama.value = namaTamu;
             }
 
             // Auto dismiss intro cover screen after 2.5 seconds
@@ -2575,82 +2791,122 @@
         // Start Gallery Auto Slide
         startGalleryAutoSlide();
 
-        // RSVP Handler (Terpisah)
-        function handleRsvpOnly(e) {
+        // Toggle jumlah field if Tidak Hadir
+        function toggleJumlahField(status) {
+            const wrap = document.getElementById('wrapJumlahTamu');
+            if (wrap) {
+                if (status === 'Tidak Hadir') {
+                    wrap.style.opacity = '0.35';
+                    wrap.style.pointerEvents = 'none';
+                } else {
+                    wrap.style.opacity = '1';
+                    wrap.style.pointerEvents = 'auto';
+                }
+            }
+        }
+
+        // Unified RSVP & Wishes Counters
+        let countHadirVal = 1;
+        let countTidakVal = 0;
+        let countRaguVal = 0;
+        let countUcapanVal = 1;
+
+        // Unified RSVP & Wishes Handler
+        function handleUnifiedSubmit(e) {
             e.preventDefault();
-            const btn = document.getElementById('btnRsvpOnly');
-            const nama = document.getElementById('rsvpNama').value.trim();
-            const status = document.getElementById('rsvpStatus').value;
-            const jumlah = document.getElementById('rsvpJumlah').value;
+            const btn = document.getElementById('btnUnifiedSubmit');
+            const nama = document.getElementById('unifiedNama').value.trim();
+            const status = document.getElementById('unifiedStatus').value;
+            const jumlah = document.getElementById('unifiedJumlah').value;
+            const pesan = document.getElementById('unifiedPesan').value.trim();
 
             if (!nama || !status) return;
 
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Mengirim...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Mengirim Data...';
             btn.disabled = true;
 
             setTimeout(() => {
+                // 1. Tambahkan ke Kolom 1: Daftar Kehadiran
+                const rsvpContainer = document.getElementById('rsvpStreamContainer');
+                if (rsvpContainer) {
+                    const rsvpItem = document.createElement('div');
+                    rsvpItem.className = "rsvp-item-box animate__animated animate__fadeInDown";
+                    
+                    let badgeClass = 'badge-status-hadir';
+                    if (status === 'Tidak Hadir') badgeClass = 'badge-status-tidak';
+                    if (status === 'Ragu-ragu') badgeClass = 'badge-status-ragu';
+
+                    const jumlahText = (status === 'Tidak Hadir') ? '-' : jumlah;
+
+                    rsvpItem.innerHTML = `
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <strong class="text-slate small fw-bold"><i class="fas fa-user-circle me-1 text-muted"></i> ${nama}</strong>
+                            <span class="${badgeClass}">${status}</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center text-muted" style="font-size: 0.74rem;">
+                            <span><i class="fas fa-users me-1"></i> ${jumlahText}</span>
+                            <span>Baru saja</span>
+                        </div>
+                    `;
+                    rsvpContainer.insertBefore(rsvpItem, rsvpContainer.firstChild);
+
+                    // Update Counters
+                    if (status === 'Hadir') countHadirVal++;
+                    else if (status === 'Tidak Hadir') countTidakVal++;
+                    else if (status === 'Ragu-ragu') countRaguVal++;
+
+                    const elHadir = document.getElementById('countHadir');
+                    const elTidak = document.getElementById('countTidak');
+                    const elRagu = document.getElementById('countRagu');
+                    if (elHadir) elHadir.textContent = countHadirVal;
+                    if (elTidak) elTidak.textContent = countTidakVal;
+                    if (elRagu) elRagu.textContent = countRaguVal;
+                }
+
+                // 2. Tambahkan ke Kolom 2: Ucapan & Doa Restu (jika pesan diisi)
+                if (pesan) {
+                    const wishesContainer = document.getElementById('ucapanStreamContainer');
+                    if (wishesContainer) {
+                        const wishItem = document.createElement('div');
+                        wishItem.className = "wishes-bubble-item animate__animated animate__fadeInDown";
+                        
+                        let badgeClass = 'badge-hadir';
+                        if (status === 'Tidak Hadir') badgeClass = 'badge-status-tidak';
+                        if (status === 'Ragu-ragu') badgeClass = 'badge-status-ragu';
+
+                        wishItem.innerHTML = `
+                            <div class="d-flex align-items-center mb-1">
+                                <i class="fas fa-user-circle me-2 fs-5" style="color: #6c8099;"></i>
+                                <strong class="wishes-author">${nama}</strong>
+                                <span class="${badgeClass} ms-auto">${status}</span>
+                            </div>
+                            <p class="wishes-text mb-1">${pesan}</p>
+                            <small class="wishes-time">Baru saja</small>
+                        `;
+                        wishesContainer.insertBefore(wishItem, wishesContainer.firstChild);
+
+                        countUcapanVal++;
+                        const elUcapan = document.getElementById('ucapanCount');
+                        if (elUcapan) elUcapan.textContent = countUcapanVal;
+                    }
+                }
+
+                // Feedback Popup
                 Swal.fire({
                     icon: 'success',
                     title: 'Terima Kasih!',
-                    text: `Konfirmasi kehadiran (${status} - ${jumlah}) atas nama ${nama} telah kami terima.`,
+                    text: `Konfirmasi kehadiran (${status}) dan doa restu Anda telah kami terima.`,
                     confirmButtonColor: '#5b6f87',
                     confirmButtonText: 'Tutup'
                 });
-                btn.innerHTML = '<i class="fas fa-check me-2"></i> Berhasil Dikonfirmasi';
+
+                document.getElementById('unifiedPesan').value = '';
+                btn.innerHTML = '<i class="fas fa-check me-2"></i> Terkirim!';
                 setTimeout(() => {
-                    btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Kirim Konfirmasi Kehadiran';
+                    btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Kirim Konfirmasi & Ucapan';
                     btn.disabled = false;
                 }, 3000);
-            }, 800);
-        }
-
-        // Ucapan Handler (Terpisah)
-        function handleUcapanOnly(e) {
-            e.preventDefault();
-            const btn = document.getElementById('btnUcapanOnly');
-            const nama = document.getElementById('ucapanNama').value.trim();
-            const teks = document.getElementById('ucapanTeks').value.trim();
-
-            if (!nama || !teks) return;
-
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
-            btn.disabled = true;
-
-            setTimeout(() => {
-                const container = document.getElementById('ucapanContainer');
-                const item = document.createElement('div');
-                item.className = "wishes-bubble-item animate__animated animate__fadeInDown";
-                item.innerHTML = `
-                    <div class="d-flex align-items-center mb-1">
-                        <i class="fas fa-user-circle me-2 fs-5" style="color: #6c8099;"></i>
-                        <strong class="wishes-author">${nama}</strong>
-                        <span class="badge-hadir ms-auto">Ucapan</span>
-                    </div>
-                    <p class="wishes-text mb-1">${teks}</p>
-                    <small class="wishes-time">Baru saja</small>
-                `;
-                if (container) {
-                    container.insertBefore(item, container.firstChild);
-                }
-
-                const countElem = document.getElementById('ucapanCount');
-                if (countElem) {
-                    let count = parseInt(countElem.textContent) || 0;
-                    countElem.textContent = count + 1;
-                }
-
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Terima Kasih!',
-                    text: 'Doa dan ucapan Anda telah kami terima.',
-                    confirmButtonColor: '#5b6f87',
-                    confirmButtonText: 'Tutup'
-                });
-
-                document.getElementById('ucapanTeks').value = '';
-                btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Kirim Ucapan';
-                btn.disabled = false;
-            }, 800);
+            }, 700);
         }
 
     </script>
