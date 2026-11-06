@@ -171,28 +171,28 @@
         .intro-top-text {
             width: 100%;
             max-width: 440px;
-            margin: 0 auto;
+            margin: clamp(3.5rem, 8vh, 5.5rem) auto 0;
             animation: fadeInDown 1.2s ease-out;
         }
 
         .intro-bismillah {
-            font-size: clamp(0.78rem, 2.7vw, 0.92rem);
-            font-weight: 600;
+            font-size: clamp(0.82rem, 2.8vw, 0.98rem);
+            font-weight: 700;
             letter-spacing: 3.5px;
-            color: #273746;
-            margin-bottom: 0.35rem;
+            color: #ffffff;
+            margin-bottom: 0.4rem;
             text-transform: uppercase;
-            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 0 16px rgba(212, 175, 55, 0.7);
         }
 
         .intro-open-label {
-            font-size: clamp(0.7rem, 2.4vw, 0.82rem);
-            font-weight: 500;
-            letter-spacing: 4px;
-            color: #4b6584;
+            font-size: clamp(0.74rem, 2.5vw, 0.88rem);
+            font-weight: 600;
+            letter-spacing: 4.5px;
+            color: #fce8b3;
             margin-bottom: 0;
             text-transform: uppercase;
-            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85), 0 0 12px rgba(212, 175, 55, 0.6);
         }
 
         .intro-loader-bar {
@@ -355,7 +355,7 @@
             text-align: center;
         }
 
-        /* Tombol Buka Undangan Glowing Berputar */
+        /* Tombol Buka Undangan Minimalis & Elegan (Tanpa Putaran Glowing) */
         .cover-btn-wrap {
             width: 100%;
             max-width: 480px;
@@ -366,90 +366,32 @@
             align-items: center;
         }
 
-        .btn-open-invite-wrap {
-            position: relative;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            padding: 3px;
-            border-radius: 35px;
-            overflow: hidden;
-            background: transparent;
-            cursor: pointer;
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.45), 0 4px 15px rgba(0, 0, 0, 0.3);
-            animation: btnOuterPulse 2.4s ease-in-out infinite alternate;
-        }
-
-        .btn-open-invite-wrap::before {
-            content: '';
-            position: absolute;
-            top: -65%;
-            left: -65%;
-            width: 230%;
-            height: 230%;
-            background: conic-gradient(
-                from 0deg,
-                transparent 0deg,
-                transparent 250deg,
-                rgba(212, 175, 55, 0.2) 280deg,
-                #d4af37 325deg,
-                #ffffff 355deg,
-                #d4af37 360deg
-            );
-            animation: rotateGlowSlow 6s linear infinite;
-            z-index: 1;
-        }
-
-        @keyframes rotateGlowSlow {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
         .btn-open-invite {
-            position: relative;
-            z-index: 2;
-            background: #5b6f87;
+            background: rgba(91, 111, 135, 0.88);
             color: #ffffff !important;
-            border: 1px solid rgba(255, 255, 255, 0.85);
-            border-radius: 32px;
-            padding: 12px 36px;
-            font-size: 0.98rem;
-            font-weight: 600;
+            border: 1.5px solid rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 9px 26px;
+            font-size: 0.88rem;
+            font-weight: 500;
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            backdrop-filter: blur(6px);
-            -webkit-backdrop-filter: blur(6px);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+            letter-spacing: 0.3px;
         }
 
         .btn-open-invite:hover {
-            background: #4e627a;
-            transform: scale(1.03);
-        }
-
-        @keyframes rotateGlow {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
-        @keyframes btnOuterPulse {
-            0% {
-                box-shadow: 0 0 15px rgba(212, 175, 55, 0.35), 0 0 8px rgba(255, 255, 255, 0.25);
-            }
-            100% {
-                box-shadow: 0 0 35px rgba(212, 175, 55, 0.85), 0 0 20px rgba(255, 255, 255, 0.65), 0 6px 25px rgba(0, 0, 0, 0.4);
-            }
+            background: rgba(91, 111, 135, 1);
+            border-color: #ffffff;
+            color: #ffffff !important;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
         }
 
         /* Halaman 2: Ayat di Bagian Kosong Atas & Countdown di Bawah */
@@ -502,11 +444,11 @@
             text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
         }
 
-        /* Countdown & Tombol di Bagian Bawah */
+        /* Countdown & Tombol di Bagian Bawah (Diposisikan Lebih Tinggi) */
         .hero-bottom-wrap {
             width: 100%;
             max-width: 480px;
-            margin: 0 auto;
+            margin: 0 auto clamp(1.8rem, 4.5vh, 3.2rem);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -825,16 +767,46 @@
             text-align: center;
         }
 
-        .mempelai-intro {
+        .mempelai-intro-wrap {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto 28px;
+            text-align: center;
+        }
+
+        .mempelai-intro-outer {
             font-family: var(--font-heading);
             font-style: italic;
+            font-size: clamp(0.92rem, 3vw, 1.05rem);
+            color: #ffffff;
+            line-height: 1.65;
+            margin-bottom: 14px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 12px rgba(0, 0, 0, 0.5);
+        }
+
+        .mempelai-divider-outer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            max-width: 220px;
+            margin: 0 auto;
+        }
+
+        .mempelai-divider-line-light {
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.45);
+        }
+
+        .mempelai-divider-icon-light {
+            padding: 0 10px;
+            color: rgba(255, 255, 255, 0.95);
             font-size: 0.95rem;
-            color: #334155;
-            line-height: 1.7;
-            margin-bottom: 24px;
-            max-width: 380px;
-            margin-left: auto;
-            margin-right: auto;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .mempelai-intro {
+            display: none;
         }
 
         .mempelai-divider {
@@ -1928,13 +1900,11 @@
             <p class="cover-disclaimer">*) Mohon maaf apabila ada kesalahan<br>dalam penulisan nama/gelar</p>
         </div>
 
-        <!-- Bagian Bawah: Tombol Buka Undangan Glowing Berputar -->
+        <!-- Bagian Bawah: Tombol Buka Undangan Minimalis -->
         <div class="cover-btn-wrap animate__animated animate__fadeInUp">
-            <div class="btn-open-invite-wrap" onclick="bukaUndangan()">
-                <button class="btn-open-invite">
-                    <i class="far fa-envelope me-2"></i> Buka Undangan
-                </button>
-            </div>
+            <button class="btn-open-invite" onclick="bukaUndangan()">
+                <i class="far fa-envelope me-2"></i> Buka Undangan
+            </button>
         </div>
     </div>
 
@@ -1998,63 +1968,63 @@
 
         <!-- Section Mempelai (Format Sesuai Folder Refrensi) -->
         <section id="mempelai-section" class="section-mempelai-ref">
-            <div class="mempelai-card" data-aos="fade-up" data-aos-duration="1200">
-                <!-- Intro Text -->
-                <p class="mempelai-intro">
-                    Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara Pernikahan kami:
-                </p>
-
-                <!-- Divider with Rings Icon -->
-                <div class="mempelai-divider">
-                    <span class="mempelai-divider-line"></span>
-                    <span class="mempelai-divider-icon">
-                        <i class="fas fa-ring"></i>
-                        <i class="fas fa-ring" style="margin-left: -6px;"></i>
-                    </span>
-                    <span class="mempelai-divider-line"></span>
+            <div class="container text-center">
+                <!-- Tulisan Undangan di Luar Kotak Putih (Warna Cerah & Shadow Kontras) -->
+                <div class="mempelai-intro-wrap" data-aos="fade-down">
+                    <p class="mempelai-intro-outer">
+                        Tanpa mengurangi rasa hormat, kami bermaksud mengundang Bapak/Ibu/Saudara/i untuk menghadiri acara Pernikahan kami:
+                    </p>
+                    <div class="mempelai-divider-outer">
+                        <span class="mempelai-divider-line-light"></span>
+                        <span class="mempelai-divider-icon-light">
+                            <i class="fas fa-ring"></i>
+                            <i class="fas fa-ring" style="margin-left: -6px;"></i>
+                        </span>
+                        <span class="mempelai-divider-line-light"></span>
+                    </div>
                 </div>
 
-                <!-- THE GROOM -->
-                <div class="mempelai-person-block" data-aos="fade-up">
-                    <h3 class="mempelai-label">THE GROOM</h3>
-                    <div class="mempelai-arch-wrap">
-                        <img src="groom_arch.jpg" alt="M. Dayyan Bisri" class="mempelai-arch-img">
+                <div class="mempelai-card" data-aos="fade-up" data-aos-duration="1200">
+                    <!-- THE GROOM -->
+                    <div class="mempelai-person-block" data-aos="fade-up">
+                        <h3 class="mempelai-label">THE GROOM</h3>
+                        <div class="mempelai-arch-wrap">
+                            <img src="groom_arch.jpg" alt="M. Dayyan Bisri" class="mempelai-arch-img">
+                        </div>
+                        <h4 class="mempelai-fullname mt-3">M. Dayyan Bisri</h4>
+                        <div class="mempelai-name-line"></div>
+                        <p class="mempelai-parents">
+                            Putra pertama dari Bapak Himni<br>dan Ibu Purnawati
+                        </p>
+                        <p class="mempelai-address">
+                            <i class="fas fa-map-marker-alt me-1" style="color: #6c8099;"></i> Aikmel Utara, Aikmel, Lombok Timur
+                        </p>
+                        <a href="https://instagram.com" target="_blank" class="mempelai-ig-btn">
+                            <i class="fab fa-instagram me-1"></i> @dayyan.bisri
+                        </a>
                     </div>
-                    <div class="mempelai-nickname">Dayyan</div>
-                    <h4 class="mempelai-fullname">M. Dayyan Bisri</h4>
-                    <div class="mempelai-name-line"></div>
-                    <p class="mempelai-parents">
-                        Putra pertama dari Bapak Himni<br>dan Ibu Purnawati
-                    </p>
-                    <p class="mempelai-address">
-                        <i class="fas fa-map-marker-alt me-1" style="color: #6c8099;"></i> Aikmel Utara, Aikmel, Lombok Timur
-                    </p>
-                    <a href="https://instagram.com" target="_blank" class="mempelai-ig-btn">
-                        <i class="fab fa-instagram me-1"></i> @dayyan.bisri
-                    </a>
-                </div>
 
-                <!-- CONNECTOR & -->
-                <div class="mempelai-connector" data-aos="zoom-in">&</div>
+                    <!-- CONNECTOR & -->
+                    <div class="mempelai-connector" data-aos="zoom-in">&</div>
 
-                <!-- THE BRIDE -->
-                <div class="mempelai-person-block" data-aos="fade-up">
-                    <h3 class="mempelai-label">THE BRIDE</h3>
-                    <div class="mempelai-arch-wrap">
-                        <img src="bride_arch.jpg" alt="Nisa’ Wulandari" class="mempelai-arch-img">
+                    <!-- THE BRIDE -->
+                    <div class="mempelai-person-block" data-aos="fade-up">
+                        <h3 class="mempelai-label">THE BRIDE</h3>
+                        <div class="mempelai-arch-wrap">
+                            <img src="bride_arch.jpg" alt="Nisa’ Wulandari" class="mempelai-arch-img">
+                        </div>
+                        <h4 class="mempelai-fullname mt-3">Nisa’ Wulandari</h4>
+                        <div class="mempelai-name-line"></div>
+                        <p class="mempelai-parents">
+                            Putri pertama dari Bapak Ahmad Muzakkir Sabri<br>dan Ibu Heri Susilawati
+                        </p>
+                        <p class="mempelai-address">
+                            <i class="fas fa-map-marker-alt me-1" style="color: #6c8099;"></i> Tanak Beak Narmada, Lombok Barat
+                        </p>
+                        <a href="https://instagram.com" target="_blank" class="mempelai-ig-btn">
+                            <i class="fab fa-instagram me-1"></i> @nisa.wulandari
+                        </a>
                     </div>
-                    <div class="mempelai-nickname">Nisa</div>
-                    <h4 class="mempelai-fullname">Nisa’ Wulandari</h4>
-                    <div class="mempelai-name-line"></div>
-                    <p class="mempelai-parents">
-                        Putri pertama dari Bapak Ahmad Muzakkir Sabri<br>dan Ibu Heri Susilawati
-                    </p>
-                    <p class="mempelai-address">
-                        <i class="fas fa-map-marker-alt me-1" style="color: #6c8099;"></i> Tanak Beak Narmada, Lombok Barat
-                    </p>
-                    <a href="https://instagram.com" target="_blank" class="mempelai-ig-btn">
-                        <i class="fab fa-instagram me-1"></i> @nisa.wulandari
-                    </a>
                 </div>
             </div>
         </section>
