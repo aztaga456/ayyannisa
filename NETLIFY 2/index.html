@@ -1580,6 +1580,16 @@
     font-size: 1.8rem;
 }
 
+
+.dana-logo-img {
+    height: 42px;
+    width: 42px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(17, 142, 234, 0.25);
+    display: block;
+}
+
 .dana-text {
     background: #118eea;
     color: #ffffff;
@@ -1862,15 +1872,15 @@
     margin-top: 20px;
 }
 
-/* Glow klap-klip blinking animation for tuanmuda footer link */
+/* Glow klap-klip blinking animation for tuanmuda footer link - pelan & smooth */
 .footer-tuanmuda {
     color: #ffffff !important;
     font-weight: 700;
     text-decoration: none !important;
     display: inline-block;
     letter-spacing: 0.8px;
-    animation: tuanmudaGlowBlink 1.4s infinite ease-in-out;
-    transition: all 0.3s ease;
+    animation: tuanmudaGlowBlink 3.2s infinite ease-in-out;
+    transition: all 0.5s ease;
     cursor: pointer;
 }
 
@@ -1886,12 +1896,12 @@
         color: #ffffff;
         text-shadow: 0 0 8px #ffffff, 0 0 16px rgba(255, 215, 0, 0.95), 0 0 26px rgba(255, 215, 0, 0.7);
         filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px rgba(255, 215, 0, 0.85));
-        transform: scale(1.04);
+        transform: scale(1.03);
     }
     50% {
-        opacity: 0.3;
-        color: rgba(255, 255, 255, 0.65);
-        text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+        opacity: 0.35;
+        color: rgba(255, 255, 255, 0.7);
+        text-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
         filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
         transform: scale(0.98);
     }
@@ -2099,7 +2109,7 @@
                         <h3 class="event-title">RESEPSI</h3>
                         <p class="event-date">Sabtu, 21 November 2026</p>
                         <p class="event-time">Pukul 11.00 WIB - Selesai</p>
-                        <p class="event-place-name">Kantor Gedung Olahraga (GOR)</p>
+                        <p class="event-place-name">Gedung Olahraga</p>
                         <p class="event-address">Kantor Desa Aikmel Utara, Kec. Aikmel, Kabupaten Lombok Timur</p>
                         <a href="https://maps.google.com/?q=Kantor+Desa+Aikmel+Utara+Lombok+Timur" target="_blank" class="btn-ref-blue">
                             <i class="fas fa-map-marked-alt me-2"></i> Buka Google Maps
@@ -2230,7 +2240,7 @@
                                     <i class="fas fa-microchip"></i>
                                 </div>
                                 <div class="provider-logo dana-logo">
-                                    <span class="dana-text">DANA</span>
+                                    <img src="dana-logo.webp" alt="DANA" class="dana-logo-img">
                                 </div>
                             </div>
                             <div class="gift-card-body">
@@ -2249,7 +2259,7 @@
                                     <i class="fas fa-microchip"></i>
                                 </div>
                                 <div class="provider-logo dana-logo">
-                                    <span class="dana-text">DANA</span>
+                                    <img src="dana-logo.webp" alt="DANA" class="dana-logo-img">
                                 </div>
                             </div>
                             <div class="gift-card-body">
@@ -2290,7 +2300,7 @@
 
                 <!-- FORM UTAMA: KONFIRMASI KEHADIRAN & UCAPAN DOA (1 KOTAK TERPADU) -->
                 <div class="unified-rsvp-card" data-aos="fade-up">
-                    <h2 class="wishes-card-title">KONFIRMASI KEHADIRAN &amp; DOA RESTU</h2>
+                    <h2 class="wishes-card-title">DO'A &amp; RSVP</h2>
                     <p class="wishes-card-sub">Mohon konfirmasi kehadiran serta berikan doa restu Anda untuk kami</p>
 
                     <form id="formUnifiedRsvp" onsubmit="handleUnifiedSubmit(event)" class="text-start">
@@ -2467,7 +2477,7 @@
         function saveTheDate() {
             const title = encodeURIComponent("The Wedding of Dayyan & Nisa");
             const details = encodeURIComponent("Walimatul Ursy / Pernikahan Ayyan & Nisa. Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.");
-            const location = encodeURIComponent("Masjid Al-Amin & Kantor Gedung Olahraga Desa Aikmel Utara, Lombok Timur");
+            const location = encodeURIComponent("Masjid Al-Amin & Gedung Olahraga Desa Aikmel Utara, Lombok Timur");
             // 21 November 2026, 08:00 - 13:00 WIB
             const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T010000Z/20261121T060000Z&details=${details}&location=${location}`;
             window.open(gcalUrl, '_blank');
