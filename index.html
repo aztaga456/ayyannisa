@@ -1861,6 +1861,41 @@
     padding: 22px 10px;
     margin-top: 20px;
 }
+
+/* Glow klap-klip blinking animation for tuanmuda footer link */
+.footer-tuanmuda {
+    color: #ffffff !important;
+    font-weight: 700;
+    text-decoration: none !important;
+    display: inline-block;
+    letter-spacing: 0.8px;
+    animation: tuanmudaGlowBlink 1.4s infinite ease-in-out;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.footer-tuanmuda:hover {
+    color: #ffe066 !important;
+    text-decoration: none !important;
+    text-shadow: 0 0 16px rgba(255, 224, 102, 1), 0 0 25px rgba(255, 215, 0, 0.95);
+}
+
+@keyframes tuanmudaGlowBlink {
+    0%, 100% {
+        opacity: 1;
+        color: #ffffff;
+        text-shadow: 0 0 8px #ffffff, 0 0 16px rgba(255, 215, 0, 0.95), 0 0 26px rgba(255, 215, 0, 0.7);
+        filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 12px rgba(255, 215, 0, 0.85));
+        transform: scale(1.04);
+    }
+    50% {
+        opacity: 0.3;
+        color: rgba(255, 255, 255, 0.65);
+        text-shadow: 0 0 2px rgba(255, 255, 255, 0.3);
+        filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.2));
+        transform: scale(0.98);
+    }
+}
 </style>
 </head>
 
@@ -2045,9 +2080,9 @@
                         <h3 class="event-title">AKAD NIKAH</h3>
                         <p class="event-date">Sabtu, 21 November 2026</p>
                         <p class="event-time">Pukul 09.00 WIB - Selesai</p>
-                        <p class="event-place-name">Kediaman Mempelai Wanita</p>
-                        <p class="event-address">Tanak Beak Narmada, Lombok Barat</p>
-                        <a href="https://maps.google.com/?q=Tanak+Beak+Narmada+Lombok+Barat" target="_blank" class="btn-ref-blue">
+                        <p class="event-place-name">Masjid Al-Amin</p>
+                        <p class="event-address">Aikmel Utara, Kec. Aikmel, Kabupaten Lombok Timur</p>
+                        <a href="https://maps.google.com/?q=Masjid+Al-Amin+Aikmel+Utara+Lombok+Timur" target="_blank" class="btn-ref-blue">
                             <i class="fas fa-map-marked-alt me-2"></i> Buka Google Maps
                         </a>
                     </div>
@@ -2064,9 +2099,9 @@
                         <h3 class="event-title">RESEPSI</h3>
                         <p class="event-date">Sabtu, 21 November 2026</p>
                         <p class="event-time">Pukul 11.00 WIB - Selesai</p>
-                        <p class="event-place-name">Kediaman Mempelai Pria</p>
-                        <p class="event-address">Aikmel Utara, Aikmel, Lombok Timur</p>
-                        <a href="https://maps.google.com/?q=Aikmel+Utara+Aikmel+Lombok+Timur" target="_blank" class="btn-ref-blue">
+                        <p class="event-place-name">Kantor Gedung Olahraga (GOR)</p>
+                        <p class="event-address">Kantor Desa Aikmel Utara, Kec. Aikmel, Kabupaten Lombok Timur</p>
+                        <a href="https://maps.google.com/?q=Kantor+Desa+Aikmel+Utara+Lombok+Timur" target="_blank" class="btn-ref-blue">
                             <i class="fas fa-map-marked-alt me-2"></i> Buka Google Maps
                         </a>
                     </div>
@@ -2188,7 +2223,7 @@
 
                 <div class="collapse show" id="giftCollapse">
                     <div class="gift-cards-container">
-                        <!-- DANA Card -->
+                        <!-- DANA Card 1 (DAIYYAN BISRI) -->
                         <div class="gift-digital-card" data-aos="fade-up">
                             <div class="gift-card-header">
                                 <div class="chip-icon">
@@ -2199,30 +2234,30 @@
                                 </div>
                             </div>
                             <div class="gift-card-body">
-                                <p class="gift-account-number" id="rek-dana">088294599827</p>
-                                <p class="gift-account-name">Nisa’ Wulandari</p>
+                                <p class="gift-account-number" id="rek-dana-1">085941841631</p>
+                                <p class="gift-account-name">DAIYYAN BISRI</p>
                             </div>
-                            <button class="btn-copy-account" onclick="copyText('rek-dana', 'Nomor DANA')">
-                                <i class="far fa-copy me-2"></i> Copy No. Rekening
+                            <button class="btn-copy-account" onclick="copyText('rek-dana-1', 'Nomor DANA DAIYYAN BISRI')">
+                                <i class="far fa-copy me-2"></i> Salin Nomor DANA
                             </button>
                         </div>
 
-                        <!-- BANK JATIM Card -->
+                        <!-- DANA Card 2 (NISA WULANDARI) -->
                         <div class="gift-digital-card" data-aos="fade-up" data-aos-delay="100">
                             <div class="gift-card-header">
                                 <div class="chip-icon">
                                     <i class="fas fa-microchip"></i>
                                 </div>
-                                <div class="provider-logo">
-                                    <span class="bank-title">BANK JATIM</span>
+                                <div class="provider-logo dana-logo">
+                                    <span class="dana-text">DANA</span>
                                 </div>
                             </div>
                             <div class="gift-card-body">
-                                <p class="gift-account-number" id="rek-jatim">901962902015</p>
-                                <p class="gift-account-name">M. Dayyan Bisri</p>
+                                <p class="gift-account-number" id="rek-dana-2">085967103982</p>
+                                <p class="gift-account-name">NISA WULANDARI</p>
                             </div>
-                            <button class="btn-copy-account" onclick="copyText('rek-jatim', 'Nomor Rekening Bank Jatim')">
-                                <i class="far fa-copy me-2"></i> Copy No. Rekening
+                            <button class="btn-copy-account" onclick="copyText('rek-dana-2', 'Nomor DANA NISA WULANDARI')">
+                                <i class="far fa-copy me-2"></i> Salin Nomor DANA
                             </button>
                         </div>
 
@@ -2345,8 +2380,8 @@
 
                 <!-- Bottom Watermark Footer -->
                 <div class="ref-footer-wrap">
-                    <p class="mb-0 small text-white-50">
-                        Digital Invitation by <a href="https://www.lomboxtudio.my.id" target="_blank" rel="noopener noreferrer" class="footer-tuanmuda">"Tuanmuda"</a>
+                    <p class="mb-0 small text-white-75">
+                        Undangan Digital by <a href="https://www.lomboxtudio.my.id" target="_blank" rel="noopener noreferrer" class="footer-tuanmuda">tuanmuda</a>
                     </p>
                 </div>
             </div>
@@ -2432,7 +2467,7 @@
         function saveTheDate() {
             const title = encodeURIComponent("The Wedding of Dayyan & Nisa");
             const details = encodeURIComponent("Walimatul Ursy / Pernikahan Ayyan & Nisa. Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan doa restu.");
-            const location = encodeURIComponent("Lombok");
+            const location = encodeURIComponent("Masjid Al-Amin & Kantor Gedung Olahraga Desa Aikmel Utara, Lombok Timur");
             // 21 November 2026, 08:00 - 13:00 WIB
             const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=20261121T010000Z/20261121T060000Z&details=${details}&location=${location}`;
             window.open(gcalUrl, '_blank');
