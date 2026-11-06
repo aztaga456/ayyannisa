@@ -1370,6 +1370,7 @@
 }
 
 .gallery-zoom-hint {
+    display: none !important;
     position: absolute;
     bottom: 12px;
     right: 12px;
@@ -2082,9 +2083,7 @@
                     <!-- Featured Big Thumbnail (Slideshow) -->
                     <div class="gallery-featured-wrap" onclick="openCurrentSlideInModal()">
                         <img id="galleryMainImg" src="galeri_assets/slide_1.jpg" alt="Gallery Ayyan & Nisa" class="gallery-featured-img">
-                        <div class="gallery-zoom-hint">
-                            <i class="fas fa-search-plus me-1"></i> Perbesar
-                        </div>
+
                     </div>
 
                     <!-- Small Square Thumbnails (Single Row Track, 4 Visible at Once, Auto-scrolling) -->
@@ -2307,28 +2306,14 @@
                                 <i class="fas fa-comments me-2" style="color: #6c8099;"></i> UCAPAN &amp; DOA RESTU
                             </div>
                             
-                            <!-- Rekap Ringkasan: Total Ucapan & Kehadiran -->
-                            <div class="column-summary-bar">
-                                <span class="badge bg-light text-slate border px-2 py-1">
-                                    <i class="fas fa-heart text-danger me-1"></i> <span id="ucapanCount">1</span> Ucapan
-                                </span>
-                                <span class="badge bg-success-subtle text-success border border-success-subtle px-2 py-1 ms-1">
-                                    <i class="fas fa-check-circle me-1"></i> Hadir: <span id="countHadir">1</span>
-                                </span>
-                                <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-2 py-1 ms-1">
-                                    <i class="fas fa-times-circle me-1"></i> Tidak Hadir: <span id="countTidak">0</span>
-                                </span>
-                                <span class="badge bg-warning-subtle text-warning border border-warning-subtle px-2 py-1 ms-1">
-                                    <i class="fas fa-question-circle me-1"></i> Ragu: <span id="countRagu">0</span>
-                                </span>
-                            </div>
+
 
                             <!-- Stream Ucapan Tamu (Setiap item memuat Nama, Status Hadir/Tidak, dan Ucapan) -->
                             <div class="wishes-stream-list" id="ucapanStreamContainer">
                                 <div class="wishes-bubble-item">
                                     <div class="d-flex align-items-center mb-1">
                                         <i class="fas fa-user-circle me-2 fs-5" style="color: #6c8099;"></i>
-                                        <strong class="wishes-author">Keluarga Besar Santriman</strong>
+                                        <strong class="wishes-author">Keluarga Besar H. Mansyur</strong>
                                         <span class="badge-status-hadir ms-auto">Hadir</span>
                                     </div>
                                     <p class="wishes-text mb-1">
@@ -2361,7 +2346,7 @@
                 <!-- Bottom Watermark Footer -->
                 <div class="ref-footer-wrap">
                     <p class="mb-0 small text-white-50">
-                        &copy; 2026 Digital Invitation - <span class="text-white">Ayyan &amp; Nisa</span>. All Rights Reserved.
+                        Digital Invitation by <a href="https://www.lomboxtudio.my.id" target="_blank" rel="noopener noreferrer" class="footer-tuanmuda">"Tuanmuda"</a>
                     </p>
                 </div>
             </div>
@@ -2796,6 +2781,74 @@
         let countRaguVal = 0;
         let countUcapanVal = 1;
 
+        // Google Apps Script Web App Endpoint untuk Google Spreadsheet
+        const SPREADSHEET_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyq6MPuPg7Tu-blIT9NLpgx7_UZleaJLJPCvc87cV_qSbcGUvzqS2eKEyX7bjyZduXA_Q/exec';
+
+        // Load Ucapan & Kehadiran dari Google Spreadsheet saat halaman dibuka
+        async function loadSpreadsheetWishes() {
+            try {
+                const response = await fetch(SPREADSHEET_SCRIPT_URL + '?action=getUnified');
+                const result = await response.json();
+                if (result && result.success && Array.isArray(result.data) && result.data.length > 0) {
+                    const wishesContainer = document.getElementById('ucapanStreamContainer');
+                    if (!wishesContainer) return;
+
+                    // Filter baris yang memiliki nama tamu
+                    const validItems = result.data.filter(item => item.nama_tamu && item.nama_tamu.trim() !== '');
+                    if (validItems.length > 0) {
+                        let html = '';
+                        validItems.forEach(item => {
+                            let badgeClass = 'badge-status-hadir';
+                            const st = item.status_kehadiran || 'Hadir';
+                            if (st === 'Tidak Hadir') badgeClass = 'badge-status-tidak';
+                            if (st === 'Ragu-ragu') badgeClass = 'badge-status-ragu';
+
+                            const defaultPesan = st === 'Hadir' 
+                                ? `Konfirmasi hadir (${item.jumlah_hadir || '1 Orang'}) untuk pernikahan Ayyan & Nisa.`
+                                : 'Mohon maaf belum dapat hadir, doa terbaik selalu menyertai kedua mempelai.';
+                            const pesanTxt = item.pesan && item.pesan.trim() !== '' ? item.pesan : defaultPesan;
+                            const timeTxt = item.created_at || 'Tamu Undangan';
+
+                            html += `
+                                <div class="wishes-bubble-item animate__animated animate__fadeIn">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <i class="fas fa-user-circle me-2 fs-5" style="color: #6c8099;"></i>
+                                        <strong class="wishes-author">${item.nama_tamu}</strong>
+                                        <span class="${badgeClass} ms-auto">${st}</span>
+                                    </div>
+                                    <p class="wishes-text mb-1">${pesanTxt}</p>
+                                    <small class="wishes-time">${timeTxt}</small>
+                                </div>
+                            `;
+                        });
+
+                        // Tambahkan ucapan default Keluarga Besar H. Mansyur di paling bawah
+                        html += `
+                            <div class="wishes-bubble-item">
+                                <div class="d-flex align-items-center mb-1">
+                                    <i class="fas fa-user-circle me-2 fs-5" style="color: #6c8099;"></i>
+                                    <strong class="wishes-author">Keluarga Besar H. Mansyur</strong>
+                                    <span class="badge-status-hadir ms-auto">Hadir</span>
+                                </div>
+                                <p class="wishes-text mb-1">
+                                    Selamat menempuh hidup baru Ayyan &amp; Nisa. Semoga menjadi keluarga yang Sakinah, Mawaddah, Warahmah. Aamiin ya rabbal'alamin.
+                                </p>
+                                <small class="wishes-time">Doa Keluarga</small>
+                            </div>
+                        `;
+                        wishesContainer.innerHTML = html;
+                    }
+                }
+            } catch (err) {
+                console.log('Spreadsheet fetch ready. Menggunakan data default.', err);
+            }
+        }
+
+        // Jalankan fetch data saat halaman selesai loading
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSpreadsheetWishes();
+        });
+
         // Unified RSVP & Wishes Handler
         function handleUnifiedSubmit(e) {
             e.preventDefault();
@@ -2810,20 +2863,32 @@
             btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Mengirim Data...';
             btn.disabled = true;
 
+            const pesanText = pesan || (status === 'Hadir' ? `Konfirmasi hadir (${jumlah}) untuk pernikahan Ayyan & Nisa. Semoga acara berjalan lancar dan penuh berkah. Aamiin.` : 'Mohon maaf belum dapat hadir secara langsung, namun doa terbaik kami selalu menyertai kedua mempelai.');
+
+            // Kirim data ke Google Apps Script Spreadsheet secara realtime (POST no-cors)
+            const payload = {
+                action: 'submitUnified',
+                nama: nama,
+                status: status,
+                jumlah: jumlah,
+                pesan: pesanText
+            };
+
+            fetch(SPREADSHEET_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'text/plain;charset=utf-8'
+                },
+                body: JSON.stringify(payload)
+            }).then(() => {
+                console.log('RSVP & Ucapan berhasil dikirim ke Google Spreadsheet');
+            }).catch(err => {
+                console.warn('Notice sync Google Sheets:', err);
+            });
+
             setTimeout(() => {
-                // Update Attendance Counters
-                if (status === 'Hadir') countHadirVal++;
-                else if (status === 'Tidak Hadir') countTidakVal++;
-                else if (status === 'Ragu-ragu') countRaguVal++;
-
-                const elHadir = document.getElementById('countHadir');
-                const elTidak = document.getElementById('countTidak');
-                const elRagu = document.getElementById('countRagu');
-                if (elHadir) elHadir.textContent = countHadirVal;
-                if (elTidak) elTidak.textContent = countTidakVal;
-                if (elRagu) elRagu.textContent = countRaguVal;
-
-                // Tambahkan ke Daftar Ucapan & Kehadiran
+                // Tambahkan ke Daftar Ucapan & Kehadiran di antarmuka
                 const wishesContainer = document.getElementById('ucapanStreamContainer');
                 if (wishesContainer) {
                     const wishItem = document.createElement('div');
@@ -2832,8 +2897,6 @@
                     let badgeClass = 'badge-status-hadir';
                     if (status === 'Tidak Hadir') badgeClass = 'badge-status-tidak';
                     if (status === 'Ragu-ragu') badgeClass = 'badge-status-ragu';
-
-                    const pesanText = pesan || (status === 'Hadir' ? `Konfirmasi hadir (${jumlah}) untuk pernikahan Ayyan & Nisa. Semoga acara berjalan lancar dan penuh berkah. Aamiin.` : 'Mohon maaf belum dapat hadir secara langsung, namun doa terbaik kami selalu menyertai kedua mempelai.');
 
                     wishItem.innerHTML = `
                         <div class="d-flex align-items-center mb-1">
@@ -2845,28 +2908,24 @@
                         <small class="wishes-time">Baru saja</small>
                     `;
                     wishesContainer.insertBefore(wishItem, wishesContainer.firstChild);
-
-                    countUcapanVal++;
-                    const elUcapan = document.getElementById('ucapanCount');
-                    if (elUcapan) elUcapan.textContent = countUcapanVal;
                 }
 
                 // Feedback Popup
                 Swal.fire({
                     icon: 'success',
                     title: 'Terima Kasih!',
-                    text: `Konfirmasi kehadiran (${status}) dan doa restu Anda telah kami terima.`,
+                    text: `Konfirmasi kehadiran (${status}) dan doa restu Anda telah tersimpan di sistem.`,
                     confirmButtonColor: '#5b6f87',
                     confirmButtonText: 'Tutup'
                 });
 
                 document.getElementById('unifiedPesan').value = '';
-                btn.innerHTML = '<i class="fas fa-check me-2"></i> Terkirim!';
+                btn.innerHTML = '<i class="fas fa-check me-2"></i> Terkirim ke Spreadsheet!';
                 setTimeout(() => {
                     btn.innerHTML = '<i class="fas fa-paper-plane me-2"></i> Kirim Konfirmasi & Ucapan';
                     btn.disabled = false;
                 }, 3000);
-            }, 700);
+            }, 600);
         }
 
     </script>

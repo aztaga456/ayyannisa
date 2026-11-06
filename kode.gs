@@ -234,7 +234,7 @@ function seedDemoData() {
   var sheetUcapan = ss.getSheetByName("Ucapan");
   if (sheetUcapan && sheetUcapan.getLastRow() <= 1) {
     var now = getCurrentTimestamp();
-    sheetUcapan.appendRow([generateId("UCP"), "Keluarga Besar Santriman", "Selamat menempuh hidup baru Ayyan & Nisa. Semoga menjadi keluarga yang Sakinah, Mawaddah, Warahmah. Aamiin.", "Tampil", now]);
+    sheetUcapan.appendRow([generateId("UCP"), "Keluarga Besar H. Mansyur", "Selamat menempuh hidup baru Ayyan & Nisa. Semoga menjadi keluarga yang Sakinah, Mawaddah, Warahmah. Aamiin.", "Tampil", now]);
   }
   
   Logger.log("seedDemoData: Selesai mengisi data demo.");
@@ -419,16 +419,87 @@ function getUcapanList() {
 }
 
 
+/**
+ * Mengambil daftar ucapan & status kehadiran tamu dari sheet RSVP untuk ditampilkan di UI
+ */
+function getUnifiedList() {
+  try {
+    var rsvpData = getSheetData("RSVP");
+    // Urutkan dari yang paling baru
+    rsvpData.reverse();
+    return response(true, rsvpData, "Data kehadiran & ucapan berhasil dimuat.");
+  } catch(e) {
+    return response(false, null, "Gagal memuat data: " + e.message);
+  }
+}
+
 function doGet(e) {
-  var html = HtmlService.createHtmlOutputFromFile('index')
-      .setTitle('Ayyan & Nisa Wedding Invitation')
-      .addMetaTag('viewport', 'width=device-width, initial-scale=1')
-      .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
-  return html;
+  // Jika ada permintaan data ucapan / list dari client
+  if (e && e.parameter && (e.parameter.action === 'getUnified' || e.parameter.action === 'getUcapan' || e.parameter.action === 'getComments')) {
+    var listData = (e.parameter.action === 'getUcapan') ? getUcapanList() : getUnifiedList();
+    return ContentService.createTextOutput(JSON.stringify(listData))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+  
+  // Jika ada permintaan simpan via GET (fallback jika POST dibatasi jaringan)
+  if (e && e.parameter && (e.parameter.nama || e.parameter.action === 'submitUnified' || e.parameter.action === 'submitRSVP')) {
+    return doPost(e);
+  }
+
+  // Default: Tampilkan template Web App jika dibuka langsung
+  try {
+    var html = HtmlService.createHtmlOutputFromFile('index')
+        .setTitle('Ayyan & Nisa Wedding Invitation')
+        .addMetaTag('viewport', 'width=device-width, initial-scale=1')
+        .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+    return html;
+  } catch(err) {
+    return ContentService.createTextOutput("Backend Wedding Invitation Ayyan & Nisa is Online.")
+      .setMimeType(ContentService.MimeType.TEXT);
+  }
 }
 
 function doPost(e) {
-  // Digunakan jika ada external API hit, tapi untuk web app biasa menggunakan google.script.run
-  return ContentService.createTextOutput(JSON.stringify(response(false, null, "Method POST not supported directly. Use google.script.run")))
-    .setMimeType(ContentService.MimeType.JSON);
+  try {
+    var data = {};
+    if (e && e.postData && e.postData.contents) {
+      try {
+        data = JSON.parse(e.postData.contents);
+      } catch(parseErr) {
+        data = e.parameter || {};
+      }
+    } else if (e && e.parameter) {
+      data = e.parameter;
+    }
+    
+    var nama   = data.nama || data.nama_tamu || "";
+    var status = data.status || data.status_kehadiran || "Hadir";
+    var jumlah = data.jumlah || data.jumlah_hadir || "1 Orang";
+    var pesan  = data.pesan || data.ucapan || "";
+    
+    if (!nama || nama.toString().trim() === "") {
+      return ContentService.createTextOutput(JSON.stringify(response(false, null, "Nama tamu wajib diisi")))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    
+    // 1. Simpan ke sheet RSVP
+    var rsvpRes = submitRSVP(nama, jumlah, status, pesan);
+    
+    // 2. Jika ada ucapan, simpan juga ke sheet Ucapan
+    if (pesan && pesan.toString().trim() !== "") {
+      submitUcapan(nama, pesan);
+    }
+    
+    return ContentService.createTextOutput(JSON.stringify(response(true, {
+      nama: nama,
+      status: status,
+      jumlah: jumlah,
+      pesan: pesan
+    }, "Konfirmasi kehadiran dan ucapan Anda berhasil disimpan ke Spreadsheet.")))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch(error) {
+    return ContentService.createTextOutput(JSON.stringify(response(false, null, "Error: " + error.toString())))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
