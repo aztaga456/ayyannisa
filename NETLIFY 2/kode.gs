@@ -449,7 +449,7 @@ function doGet(e) {
   // Default: Tampilkan template Web App jika dibuka langsung
   try {
     var html = HtmlService.createHtmlOutputFromFile('index')
-        .setTitle('AYYAN & NISA')
+        .setTitle('The Wedding of Ayyan & Nisa')
         .addMetaTag('viewport', 'width=device-width, initial-scale=1')
         .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
     return html;
